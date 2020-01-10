@@ -16,6 +16,8 @@ const appRoutes: Routes = [
    // localhost:4200/users
    { path: '', component: HomeComponent },
    { path: 'users', component: UsersComponent },
+   // the colon means its a dynamic part of the route
+   { path: 'users/:id/:name', component: UserComponent },
    { path: 'servers', component: ServersComponent }
 ];
 
