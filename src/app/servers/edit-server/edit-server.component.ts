@@ -30,7 +30,9 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
       }
     );
     this.route.fragment.subscribe();
-    this.server = this.serversService.getServer(1);
+    const id = +this.route.snapshot.params['id'];
+    // subscribe to route paraams to update the id if the params changes
+    this.server = this.serversService.getServer(id);
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
   }
@@ -47,8 +49,10 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
       return true;
     }
   
-    if ((this.serverName !== this.server.name || this.serverStatus !== this.server.status)) {
-
+    if ((this.serverName !== this.server.name || this.serverStatus !== this.server.status) && !this.changesSaved) {
+       return confirm('Do you want to discard the changes?');
+    } else {
+      return true;
     }
   }
 
